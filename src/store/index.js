@@ -13,7 +13,7 @@ mock.onGet("/api/products").reply(200, {
 
 for (let i = 1; i<=5; i++) {
   mock.onGet(routeMock[i].url).reply(200, {
-    ...routeMock[i].response.data
+    ...routeMock[i].response.data[0]
   })
 }
 
