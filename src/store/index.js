@@ -11,11 +11,11 @@ mock.onGet("/api/products").reply(200, {
   ...routeMock[0].response.data
 })
 
-const res = routeMock[1]
-mock['on'+ res.method](res.url).reply(res.status, {
-  ...res.response.data
-})
-
+for (let i = 1; i<=5; i++) {
+  mock.onGet(routeMock[i].url).reply(200, {
+    ...routeMock[i].response.data
+  })
+}
 
 Vue.use(Vuex)
 
@@ -41,14 +41,16 @@ export default new Vuex.Store({
         commit('setProducts', response.data)
       });
     },
-    getProduct ({ commit }, param) {
-      axios.get("/api/products/"+ param.id).then(function (response) {
+    getProduct ({ commit }, param) { //misteri knp dia dipanggil
+      // console.log(param);
+      axios.get("/api/product/" + param.id).then(function (response) {
         commit('setProduct', response.data)
       });
     }
   },
   getters: {
-    products: state => state.products
+    products: state => state.products,
+    product: state => state.product,
   }
 
 })

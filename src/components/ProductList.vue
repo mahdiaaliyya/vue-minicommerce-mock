@@ -21,7 +21,7 @@
           <span>Rp.100.000</span>
         </div>
       </div>
-      
+
     </div>
   </div>
 </template>
@@ -74,7 +74,7 @@ a {
   padding: 1em;
   width: 100%;
   flex-wrap: wrap;
-  
+
   a {
     color: $blue;
     text-decoration: none;

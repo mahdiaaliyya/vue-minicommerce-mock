@@ -1,15 +1,15 @@
 <template>
   <div class="about">
     <div class="product-wrapper">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/300">
-        </div>
-        <div class="product-info">
-          <h1>Product title</h1>
-          <h5>Rp.100.000</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id volutpat lacus laoreet non curabitur. Neque sodales ut etiam sit amet nisl. Porttitor lacus luctus accumsan tortor.</p>
-          <button @click="beli()">Beli</button>
-        </div>
+      <div class="product-image">
+        <img :src="product.image">
+      </div>
+      <div class="product-info">
+        <h1>{{ product.title }}</h1>
+        <h5>{{ product.price }}</h5>
+        <p>{{ product.detail }}</p>
+        <button @click="beli()">Beli</button>
+      </div>
     </div>
   </div>
 </template>
@@ -45,27 +45,29 @@
 </style>
 
 <script>
-import { mapActions} from 'vuex'
+import { mapActions, mapGetters} from 'vuex';
 
 export default {
   name: 'Product',
+  created() {
+    this.getProduct({
+      id: this.id,
+    })
+  },
   computed: {
-    productId(){
+    ...mapGetters(['product']),
+    id() {
       return this.$route.params.product_id
     }
   },
-  created() {
-    this.getProduct({
-      id: this.productId
-    })
-  },
   methods: {
-    ...mapActions([
-      'getProduct'
-    ]),
     beli() {
       return this.$router.push('/cart')
-    }
+    },
+    ...mapActions([
+      'getProduct'
+    ])
   }
 }
+
 </script>
